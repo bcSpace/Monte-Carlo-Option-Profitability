@@ -1,79 +1,72 @@
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-public class Main {
+class Main {
 	
-	JFrame frame = new JFrame(); 
-	JLabel[] label = new JLabel[20]; 
-	JTextField[] field = new JTextField[20]; 
-	JCheckBox box = new JCheckBox(); 
-	JTextArea box2 = new JTextArea(20, 25); 
-	JButton enter = new JButton("Enter");
+	private JFrame frame = new JFrame();
+	private JLabel[] label = new JLabel[20];
+	private JTextField[] field = new JTextField[20];
+	private JCheckBox box = new JCheckBox();
+	private JTextArea box2 = new JTextArea(20, 25);
+	private JButton enter = new JButton("Enter");
 	
 	
-	DecimalFormat df = new DecimalFormat("#.00"); 
+	private DecimalFormat df = new DecimalFormat("#.00");
 	
-	Calander c = new Calander(); 
-	OptionPricer op = new OptionPricer(); 
-	SimulateDay sd = new SimulateDay(); 
-	PostionManager pm = new PostionManager(); 
-	DataManagement dm = new DataManagement(); 
+	private Calender c = new Calender();
+	private OptionPricer op = new OptionPricer();
+	private SimulateDay sd = new SimulateDay();
+	private PositionManager pm = new PositionManager();
+	private DataManagement dm = new DataManagement();
 	
-	double startingPrice = 183.03;
-	double currentPrice = startingPrice; 
-	double vol = .5; 
-	double dailyVol = vol/Math.sqrt(252); 
-	double optionVol = 0; 
+	private double startingPrice = 183.03;
+	private double currentPrice = startingPrice;
+	private double vol = .5;
+	private double dailyVol = vol/Math.sqrt(252);
+	private double optionVol = 0;
 	
-	double riskFreeRate;
-	int daysToExpire; 
-	double strikePrice; 
-	double halfMax; 
-	double maxLoss; 
+	private double riskFreeRate;
+	private int daysToExpire;
+	private double strikePrice;
+	private double halfMax;
+	private double maxLoss;
 	
-	int daysLeft;
-	int daysPassed = 0; 
-	int startingDays; 
+	private int daysLeft;
+	private int daysPassed = 0;
+	private int startingDays;
 	
-	double currentOptionPrice = 0; 
-	double currentPL = 0;
+	private double currentOptionPrice = 0;
+	private double currentPL = 0;
 	
-	int amountOfSimulations = 100000; 
-	int currentSimulation = 0;
+	private int amountOfSimulations = 100000;
+	private int currentSimulation = 0;
 	
-	boolean reachedHalf = false; 
-	boolean reachedMax = false; 
-	boolean reachedMaxLoss = false; 
+	private boolean reachedHalf = false;
+	private boolean reachedMax = false;
+	private boolean reachedMaxLoss = false;
 	
-	double percentToManageAt = .35; 
-	double percentToCutAt = 1.5; 
+	private double percentToManageAt = .35;
+	private double percentToCutAt = 1.5;
 	
-	boolean testingCall; 
+	private boolean testingCall;
 	
-	String outputData = ""; 
+	private String outputData = "";
 	
-	public Main() {
+	private Main() {
 		setUpGUI(); 
 		
 		
 		//print("Starting Call Price: $" + pm.callPrice); 
-		//print("Maxium Loss if M: $" + maxLoss);
-		//print("Maxium Profit if M: $" + halfMax);
+		//print("Maximum Loss if M: $" + maxLoss);
+		//print("Maximum Profit if M: $" + halfMax);
 		
 		//print("Days till half average: " + dm.findAverageDaysTill(amountOfSimulations, 1));
 		//print("Chance of reaching half of max profit: " + dm.findChanceOfHalf(amountOfSimulations)); 
 		
 		//print("Average P&L: $"+df.format(dm.findPLA(amountOfSimulations,1)));
-		//print("Average P&L if Managenaged: $" + df.format(dm.findPLA(amountOfSimulations,2)));
+		//print("Average P&L if Managed: $" + df.format(dm.findPLA(amountOfSimulations,2)));
 		//print("Biggest Loss: $" + df.format(dm.biggestLoss));
 		//print("Largest Gain: $" + df.format(dm.largestGain));
 		
@@ -81,7 +74,7 @@ public class Main {
 		
 	}
 	
-	void runProgram() {
+	private void runProgram() {
 		
 		
 		double i = Double.parseDouble(field[0].getText());
@@ -131,7 +124,7 @@ public class Main {
 		outputData += "Days till half average: " + dm.findAverageDaysTill(amountOfSimulations, 1) + "\n";
 		outputData += "Days till max loss: " + dm.findAverageDaysTill(amountOfSimulations, 3) + "\n";
 		outputData += "Chance of reaching half of max profit: " + dm.findChanceOfHalf(amountOfSimulations) + "\n";
-		outputData += "Average P&L if Managenaged: $" + df.format(dm.findPLA(amountOfSimulations,2)) + "\n";
+		outputData += "Average P&L if Managed: $" + df.format(dm.findPLA(amountOfSimulations,2)) + "\n";
 		b = dm.profited;
 		c = amountOfSimulations; 
 		a = (b/c)*100; 
@@ -150,20 +143,20 @@ public class Main {
 		//dm.printData(amountOfSimulations, 9);
 		
 				//print("Starting Call Price: $" + pm.currentOptionPrice); 
-				//print("Maxium Loss if M: $" + maxLoss);
-				//print("Maxium Profit if M: $" + halfMax);
+				//print("Maximum Loss if M: $" + maxLoss);
+				//print("Maximum Profit if M: $" + halfMax);
 				
 				//print("Days till half average: " + dm.findAverageDaysTill(amountOfSimulations, 1));
 				//print("Chance of reaching half of max profit: " + dm.findChanceOfHalf(amountOfSimulations)); 
 				
 				//print("Average P&L: $"+df.format(dm.findPLA(amountOfSimulations,1)));
-				//print("Average P&L if Managenaged: $" + df.format(dm.findPLA(amountOfSimulations,2)));
+				//print("Average P&L if Managed: $" + df.format(dm.findPLA(amountOfSimulations,2)));
 				//print("Biggest Loss: $" + df.format(dm.biggestLoss));
 			//print("Largest Gain: $" + df.format(dm.largestGain));
 		
 	}
 	
-	void setUp(double strikePrice, double currentPrice, double riskFreeRate, double IV, int daysToExpire, boolean call) {
+	private void setUp(double strikePrice, double currentPrice, double riskFreeRate, double IV, int daysToExpire, boolean call) {
 		op.setVar(strikePrice, currentPrice, riskFreeRate, optionVol, daysToExpire);
 		this.strikePrice = strikePrice; 
 		this.riskFreeRate = riskFreeRate; 
@@ -195,7 +188,7 @@ public class Main {
 		//print("Current Daily IV: " + dailyVol);
 	}
 	
-	void runSimulation() {
+	private void runSimulation() {
 		
 		daysPassed = 0; 
 		currentPrice = startingPrice; 
@@ -215,7 +208,7 @@ public class Main {
 			if(c.isTrading()) {currentPrice = sd.simulate(currentPrice, dailyVol);
 			
 			} else {
-				
+
 			}
 			c.nextDay();
 			daysLeft--; 
@@ -259,7 +252,7 @@ public class Main {
 		
 	}
 	
-	double priceOption(boolean call, double currentPrice, int daysLeft) {
+	private double priceOption(boolean call, double currentPrice, int daysLeft) {
 		op.setNewPrice(currentPrice, daysLeft);
 		if(call) {
 			return op.calculateCall();
@@ -281,12 +274,12 @@ public class Main {
 	
 	//double strikePrice, double currentPrice, double riskFreeRate, double IV, int daysToExpire, boolean call
 	
-	void setUpGUI() {
+	private void setUpGUI() {
 		
 		frame.setSize(500, 500);
 		frame.setLayout(new FlowLayout());
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		
@@ -352,13 +345,7 @@ public class Main {
 		frame.add(box2);
 		
 
-        enter.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-            	runProgram(); 
-            }
-        });  
+        enter.addActionListener(e -> runProgram());
         
 	}
 	
