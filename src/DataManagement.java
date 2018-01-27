@@ -1,3 +1,5 @@
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+
 import java.text.DecimalFormat;
 
 public class DataManagement {
@@ -161,9 +163,14 @@ public class DataManagement {
 			}
 			
 		}
-		
-		j = ii/totalUnits; 
-		return j; 
+
+		try {
+			j = ii/totalUnits;
+		}catch (java.lang.ArithmeticException divide_by_zero){
+			System.out.println("Input error: Values must be greater than 0");
+		}
+
+		return j;
 	}
 	
 	double findPLA(int units, int ii) {
