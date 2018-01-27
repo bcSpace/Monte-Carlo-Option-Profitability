@@ -5,21 +5,21 @@ import javax.swing.*;
 
 class Main {
 	
-	private JFrame frame = new JFrame();
-	private JLabel[] label = new JLabel[20];
-	private JTextField[] field = new JTextField[20];
-	private JCheckBox box = new JCheckBox();
-	private JTextArea box2 = new JTextArea(20, 25);
-	private JButton enter = new JButton("Enter");
+	private final JFrame frame = new JFrame();
+	private final JLabel[] label = new JLabel[20];
+	private final JTextField[] field = new JTextField[20];
+	private final JCheckBox box = new JCheckBox();
+	private final JTextArea box2 = new JTextArea(20, 25);
+	private final JButton enter = new JButton("Enter");
 	
 	
-	private DecimalFormat df = new DecimalFormat("#.00");
+	private final DecimalFormat df = new DecimalFormat("#.00");
 	
-	private Calender c = new Calender();
-	private OptionPricer op = new OptionPricer();
-	private SimulateDay sd = new SimulateDay();
-	private PositionManager pm = new PositionManager();
-	private DataManagement dm = new DataManagement();
+	private final Calender c = new Calender();
+	private final OptionPricer op = new OptionPricer();
+	private final SimulateDay sd = new SimulateDay();
+	private final PositionManager pm = new PositionManager();
+	private final DataManagement dm = new DataManagement();
 	
 	private double startingPrice = 183.03;
 	private double currentPrice = startingPrice;
