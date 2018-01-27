@@ -146,8 +146,7 @@ class DataManagement {
 		//print("Reached Max Gain: " + reachedMax); 
 		//print("Profited: " + profited); 
 		//print("Amount of simulations: " + units);
-		double chance = reachedHalf/units; 
-		return chance; 
+        return (double) (reachedHalf/units);
 	}
 	
 	double findAverageDaysTill(int units, int type) {
