@@ -48,8 +48,7 @@ class Calender {
 	}
 	
 	boolean isTrading() {
-		if(currentDay == sunday || currentDay == saturday) return false;
-		return true; 
+		return currentDay != sunday && currentDay != saturday;
 	}
 	
 	int currentDay() {return currentDay;}

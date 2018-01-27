@@ -207,8 +207,6 @@ class Main {
 			daysPassed++; 
 			if(c.isTrading()) {currentPrice = sd.simulate(currentPrice, dailyVol);
 			
-			} else {
-
 			}
 			c.nextDay();
 			daysLeft--; 
