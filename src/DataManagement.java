@@ -4,20 +4,20 @@ import java.text.DecimalFormat;
 
 class DataManagement {
 	
-	private DecimalFormat df = new DecimalFormat("#.00");
+	private final DecimalFormat df = new DecimalFormat("#.00");
 	
-	private double[] underlyingPrice = new double[100];
-	private double[] putPrice = new double[100];
-	private double[] callPrice = new double[100];
-	private double[] pl = new double[100];
+	private final double[] underlyingPrice = new double[100];
+	private final double[] putPrice = new double[100];
+	private final double[] callPrice = new double[100];
+	private final double[] pl = new double[100];
 	
-	private int[] daysTillReachedHalf = new int[100000];
-	private int[] daysTillReachedLoss = new int[100000];
-	private int[] daysTillReachedMax = new int[100000];
-	private double[] plAtEnd = new double[100000];
-	private double[] plAtEndM = new double[100000];
+	private final int[] daysTillReachedHalf = new int[100000];
+	private final int[] daysTillReachedLoss = new int[100000];
+	private final int[] daysTillReachedMax = new int[100000];
+	private final double[] plAtEnd = new double[100000];
+	private final double[] plAtEndM = new double[100000];
 	
-	private double[] finalUnderlyingPrice = new double[100000];
+	private final double[] finalUnderlyingPrice = new double[100000];
 	
 	int reachedHalf = 0; 
 	private int reachedMax = 0;
