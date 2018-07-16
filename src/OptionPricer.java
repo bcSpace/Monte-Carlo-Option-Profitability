@@ -1,19 +1,19 @@
 
-public class OptionPricer {
+class OptionPricer {
 	
-	final double e = 2.718281828459045; 
+	private final double e = 2.718281828459045;
 	
-	double stockPrice;
-	double strikePrice; 
-	double riskFree; 
-	double iv; 
-	double time; 
+	private double stockPrice;
+	private double strikePrice;
+	private double riskFree;
+	private double iv;
+	private double time;
 	
-	double d1;
-	double d2; 
+	private double d1;
+	private double d2;
 	
-	double callPrice; 
-	double putPrice; 
+	private double callPrice;
+	private double putPrice;
 	
 	void setVar(double strikePrice, double stockPrice, double riskFree, double iv, double time) {
 		this.strikePrice = strikePrice; 
@@ -31,7 +31,7 @@ public class OptionPricer {
 		findD(); 
 	}
 	
-	void findD() {
+	private void findD() {
 		d1 = (Math.log(stockPrice/strikePrice) + (riskFree + ((iv*iv)/2)) * time) / (iv * Math.sqrt(time));  
 		d2 = d1 - iv * Math.sqrt(time); 
 	}
@@ -51,7 +51,7 @@ public class OptionPricer {
 	
 	
 	
-	public double N(double X)
+	private double N(double X)
 	{
 	double L, K, w ;
 	double a1 = 0.31938153, a2 = -0.356563782, a3 = 1.781477937, a4 = -1.821255978, a5 = 1.330274429;

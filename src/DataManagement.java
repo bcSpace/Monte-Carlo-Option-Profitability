@@ -1,29 +1,31 @@
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+
 import java.text.DecimalFormat;
 
-public class DataManagement {
+class DataManagement {
 	
-	DecimalFormat df = new DecimalFormat("#.00"); 
+	private final DecimalFormat df = new DecimalFormat("#.00");
 	
-	double underlyingPrice[] = new double[100];
-	double putPrice[] = new double[100];
-	double callPrice[] = new double[100];
-	double pl[] = new double[100];
+	private final double[] underlyingPrice = new double[100];
+	private final double[] putPrice = new double[100];
+	private final double[] callPrice = new double[100];
+	private final double[] pl = new double[100];
 	
-	int daysTillReachedHalf[] = new int[100000]; 
-	int daysTillReachedLoss[] = new int[100000]; 
-	int daysTillReachedMax[] = new int[100000]; 
-	double plAtEnd[] = new double[100000]; 
-	double plAtEndM[] = new double[100000];
+	private final int[] daysTillReachedHalf = new int[100000];
+	private final int[] daysTillReachedLoss = new int[100000];
+	private final int[] daysTillReachedMax = new int[100000];
+	private final double[] plAtEnd = new double[100000];
+	private final double[] plAtEndM = new double[100000];
 	
-	double finalUnderlyingPrice[] = new double[100000]; 
+	private final double[] finalUnderlyingPrice = new double[100000];
 	
 	int reachedHalf = 0; 
-	int reachedMax = 0; 
+	private int reachedMax = 0;
 	int reachedLoss = 0; 
 	int profited = 0;
 	
-	double biggestLoss = 0; 
-	double largestGain = 0; 
+	private double biggestLoss = 0;
+	private double largestGain = 0;
 	double averageGain = 0; 
 	
 	void cleanData() {
@@ -48,72 +50,92 @@ public class DataManagement {
 	}
 	
 	void storeData(int dataType, double value, int i) {
-		if(dataType == 1) {
-			underlyingPrice[i] = value; 
-		} else if(dataType == 2) {
-			putPrice[i] = value;
-		} else if(dataType == 3) {
-			callPrice[i] = value; 
-		} else if(dataType == 4) {
-			pl[i] = value; 
-		} else if(dataType == 5) {
-			daysTillReachedHalf[i] = (int)value; 
-		} else if(dataType == 6){
-			plAtEnd[i] = value; 
-		} else if(dataType == 7){
-			plAtEndM[i] = value; 
-		} else if(dataType == 8){
-			daysTillReachedLoss[i] = (int)value; 
- 		} else {
- 			finalUnderlyingPrice[i] = value; 
- 		}
+        switch (dataType) {
+            case 1:
+                underlyingPrice[i] = value;
+                break;
+            case 2:
+                putPrice[i] = value;
+                break;
+            case 3:
+                callPrice[i] = value;
+                break;
+            case 4:
+                pl[i] = value;
+                break;
+            case 5:
+                daysTillReachedHalf[i] = (int) value;
+                break;
+            case 6:
+                plAtEnd[i] = value;
+                break;
+            case 7:
+                plAtEndM[i] = value;
+                break;
+            case 8:
+                daysTillReachedLoss[i] = (int) value;
+                break;
+            default:
+                finalUnderlyingPrice[i] = value;
+                break;
+        }
 	}
 
 	void printData(int amount, int dataType) {
-		if(dataType == 1) {
-			print("Underlying Price");
-			for(int i = 0; i < amount; i++) {
-				print(df.format(underlyingPrice[i])); 
-			}
-		} else if(dataType == 2) {
-			print("Put Prices");
-			for(int i = 0; i < amount; i++) {
-				print(df.format(putPrice[i]));
-			}
-		} else if(dataType == 3) {
-			print("Call Prices"); 
-			for(int i = 0; i < amount; i++) {
-				print(""+callPrice[i]);
-			}
-		} else if(dataType == 4){
-			print("Profit loss");
-			for(int i = 0; i < amount; i++) {
-				print(df.format(pl[i])); 
-			}
-		} else if(dataType == 5){
-			print("Days till reached half");
-			for(int i = 0; i < amount; i++) {
-				if(daysTillReachedHalf[i] != 100) print(""+daysTillReachedHalf[i]);
-			}
-		} else if(dataType == 6){
-			print("Profits");
-			for(int i = 0; i < amount; i++) {
-				print("$"+df.format(plAtEnd[i])); 
-			}
-		} else if(dataType == 7){
-			print("ProfitsM");
-			for(int i = 0; i < amount; i++) {
-				print("$"+df.format(plAtEndM[i])); 
-			}
-		} else if(dataType == 8){
-			print("Days till reached max loss"); 
-			for(int i = 0; i < amount; i++) {
-				if(daysTillReachedLoss[i] != 100)print(""+daysTillReachedLoss[i]); 
-			}
-		} else {
-			print("Final Underlying Prices");
-			for(int i = 0; i < amount; i++) print("$"+df.format(finalUnderlyingPrice[i])); 
-		}
+        switch (dataType) {
+            case 1:
+                print("Underlying Price");
+                for (int i = 0; i < amount; i++) {
+                    print(df.format(underlyingPrice[i]));
+                }
+                break;
+            case 2:
+                print("Put Prices");
+                for (int i = 0; i < amount; i++) {
+                    print(df.format(putPrice[i]));
+                }
+                break;
+            case 3:
+                print("Call Prices");
+                for (int i = 0; i < amount; i++) {
+                    print("" + callPrice[i]);
+                }
+                break;
+            case 4:
+                print("Profit loss");
+                for (int i = 0; i < amount; i++) {
+                    print(df.format(pl[i]));
+                }
+                break;
+            case 5:
+                print("Days till reached half");
+                for (int i = 0; i < amount; i++) {
+                    if (daysTillReachedHalf[i] != 100) print("" + daysTillReachedHalf[i]);
+                }
+                break;
+            case 6:
+                print("Profits");
+                for (int i = 0; i < amount; i++) {
+                    print("$" + df.format(plAtEnd[i]));
+                }
+                break;
+            case 7:
+                print("ProfitsM");
+                for (int i = 0; i < amount; i++) {
+                    print("$" + df.format(plAtEndM[i]));
+                }
+                break;
+            case 8:
+                print("Days till reached max loss");
+                for (int i = 0; i < amount; i++) {
+                    if (daysTillReachedLoss[i] != 100) print("" + daysTillReachedLoss[i]);
+                }
+                break;
+            default:
+                print("Final Underlying Prices");
+                for (int i = 0; i < amount; i++) print("$" + df.format(finalUnderlyingPrice[i]));
+                break;
+        }
 		
 		
 	}
@@ -124,46 +146,54 @@ public class DataManagement {
 		//print("Reached Max Gain: " + reachedMax); 
 		//print("Profited: " + profited); 
 		//print("Amount of simulations: " + units);
-		double chance = reachedHalf/units; 
-		return chance; 
+        return (double) (reachedHalf/units);
 	}
 	
 	double findAverageDaysTill(int units, int type) {
 		
 		int ii = 0; 
 		double j = 0; 
-		int totalUnits = units; 
-		if(type == 1) { //reached half
-		for(int i = 0; i < units; i++) {
-			if(daysTillReachedHalf[i] < 100) {
-				ii += daysTillReachedHalf[i]; 
-			} else {
-				totalUnits--; 
-			}
+		int totalUnits = units;
+        switch (type) {
+            case 1:  //reached half
+                for (int i = 0; i < units; i++) {
+                    if (daysTillReachedHalf[i] < 100) {
+                        ii += daysTillReachedHalf[i];
+                    } else {
+                        totalUnits--;
+                    }
+                }
+
+                break;
+            case 2:  //reached max
+                for (int i = 0; i < units; i++) {
+                    if (daysTillReachedMax[i] < 100) {
+                        ii += daysTillReachedMax[i];
+                    } else {
+                        totalUnits--;
+                    }
+                }
+
+                break;
+            case 3:  //reached maxloss
+                for (int i = 0; i < units; i++) {
+                    if (daysTillReachedLoss[i] < 100) {
+                        ii += daysTillReachedLoss[i];
+                    } else {
+                        totalUnits--;
+                    }
+                }
+
+                break;
+        }
+
+		try {
+			j = ii/totalUnits;
+		}catch (java.lang.ArithmeticException divide_by_zero){
+			System.out.println("Input error: Values must be greater than 0");
 		}
-		
-		} else if(type == 2) { //reached max
-			for(int i = 0; i < units; i++) {
-				if(daysTillReachedMax[i] < 100) {
-					ii += daysTillReachedMax[i]; 
-				} else {
-					totalUnits--; 
-				}
-			}
-			
-		} else if(type == 3) { //reached maxloss
-			for(int i = 0; i < units; i++) {
-				if(daysTillReachedLoss[i] < 100) {
-					ii += daysTillReachedLoss[i]; 
-				} else {
-					totalUnits--; 
-				}
-			}
-			
-		}
-		
-		j = ii/totalUnits; 
-		return j; 
+
+		return j;
 	}
 	
 	double findPLA(int units, int ii) {
@@ -214,6 +244,6 @@ public class DataManagement {
 	
 	
 	
-	void print(String s) {System.out.println(s);}
+	private void print(String s) {System.out.println(s);}
 	
 }
